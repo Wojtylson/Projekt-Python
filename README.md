@@ -1,2 +1,2 @@
 # Projekt-Python
-Projekt stworzony na zajęciach z programowania w języku Python, w 2 osoby z Tomkiem Sałapatkiem.
+Projekt stworzony na zajęciach z programowania w języku Python, wraz z Tomaszem Sałapatkiem.
