@@ -1,0 +1,10 @@
+Wymagane moduły:
+
+import tkinter as tk
+from tkinter import filedialog
+import pandas as pd
+import numpy as np
+import os
+import openpyxl
+pip (wersja minimum 22.3.1)
+#pip install openpyxl (w wierszu polecen)
