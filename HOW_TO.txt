@@ -7,7 +7,7 @@ y - produkt finalny
 y = produkt finalny x = produkt całkowity, A=macierz nakładów, co wiąże się z obliczaniem macierzy, 
 a także macierzy odwrotnej, które będą czytane z pliku excel.(dowolnych rozmiarów))	
 
-	Twórcy: Tomasz Sałapatek (416216) Wojciech Kantor (412137)
+	Twórcy: Tomasz Sałapatek i Wojciech Kantor 
 Projekt był robiony wspólnie przez co ciężko wskazać zakres obowiązków poszczególnych
 członków grupy, można śmiało przyjąć pół na pół.
 	Program wykorzystuje następujące moduły:
