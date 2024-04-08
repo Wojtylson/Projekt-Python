@@ -1,31 +1,31 @@
-Temat projektu: 
-Program operujący na macierzach przepływów międzygałęziowych.
-Ustalanie poszczególnych wektorów w oparciu o powyższe macierze.
-x - produkt całkowity
-y - produkt finalny
-(Obliczanie x jak i y, używając 
-y = produkt finalny x = produkt całkowity, A=macierz nakładów, co wiąże się z obliczaniem macierzy, 
-a także macierzy odwrotnej, które będą czytane z pliku excel.(dowolnych rozmiarów))	
+Topic of the project:
+A program operating on input-output matrices.
+Determining individual vectors based on the above matrices.
+x - total product
+y - final product
+(Calculating x as well as y, using
+y = final product x = total product, A = input matrix, which involves calculating the matrix,
+and also the inverse matrix, which will be read from an excel file. (of any size))
 
-	Twórcy: Tomasz Sałapatek i Wojciech Kantor 
-Projekt był robiony wspólnie przez co ciężko wskazać zakres obowiązków poszczególnych
-członków grupy, można śmiało przyjąć pół na pół.
-	Program wykorzystuje następujące moduły:
+Creators: Tomasz Sałapatek and Wojciech Kantor
+The project was carried out jointly, which makes it difficult to indicate the scope of individual responsibilities
+group members, you can safely assume half and half.
+The program uses the following modules:
 
-1.tkinter - odpowiada za utworzenie GUI, przede wszystkim obsługuje  działanie wszystkich przycisków oraz etykiet 
-np."self.calculate_calkowity_button = tk.Button(master, text="Oblicz calkowity(x)",font=("Times New Roman", 14, "bold")"/ command=self.oblicz_calkowity,width=20, height=2)
+1.tkinter - is responsible for creating the GUI, primarily handles the operation of all buttons and labels
+e.g.."self.calculate_calkowity_button = tk.Button(master, text="Calculate_calkowity(x)",font=("Times New Roman", 14, "bold")"/ command=self.calculate_calkowity,width=20, height=2)
 
-2.tkinter->filedialog - umożliwia otwieranie okna plików w systemie operacyjnmym w celu wczytania plików 
-oraz ich zapisania, wykorzystywane w funkcjach "przegladaj_x/y" oraz "oblicz_calkowity/finalny"
+2.tkinter->filedialog - allows you to open the file window in the operating system to load files
+and their storage, used in the "browse_x/y" and "calculate_total/final" functions
 
-3.pandas - odpowiada za wczytywanie plików oraz zapisywanie plików excel np. "macierz = pd.read_excel(input_file, header=None)"
+3.pandas - responsible for loading files and saving Excel files, e.g. "matrix = pd.read_excel(input_file, header=None)"
 
-4.numpy - odpowiada za obliczenia na macierzach, takie jak mnożenie, odwracanie,odejmowanie, a także tworzenie macierzy jednostkowej 
-np."macierz_odwrotna = np.linalg.inv(leontief)","macierz_jednostkowa = np.eye(wiersze, kolumny)"
+4.numpy - responsible for matrix calculations, such as multiplication, inversion, subtraction, as well as creating an identity matrix
+e.g."inverse_matrix = np.linalg.inv(leontief)","unit_matrix = np.eye(rows, columns)"
 
-5.os - używamy go do sprawdzania czy plik o danej nazwie już istnieje np." if os.path.isfile(output_file):return "Plik wyjściowy już istnieje." "
+5.os - we use it to check whether a file with a given name already exists, e.g. " if os.path.isfile(output_file):return "The output file already exists." "
 
-6.pip - służacy do pobierania i używania bibliotek, przynajmniej wersja 22.3.1, a także openpyxl, dzięki którem możemy wczytywać plik excel.
+6.pip - used to download and use libraries, at least version 22.3.1, and openpyxl, thanks to which we can load an Excel file.
 
 
 	Po włączeniu programu
@@ -43,38 +43,41 @@ analogicznie, aby użyć przycisku "Oblicz finalny(y)" należy wcześniej wgrać
 nakładów oraz plik wejsciowy x. Na samym dole okna znajduje się przycisk "wyjdż" służący do
 zamknięcia okna GUI.
 
-	Program oparty jest na 4 funkcjach zewnętrznych oraz klasie:
+	The program is based on 4 external functions and a class:
 
-- Funkcja "leontief" służy do obliczenia tak zwanej macierzy Leontiefa w oparciu w wgraną macierz 
-nakładów. Algorytm przy pomocy biblioteki "pandas" oraz "numpy" wcztuje pożądaną macierz. Następnie 
-tworzy macierz jednostkową (o identycznych wymiarach co macierz nakładów) i odejmuje od niej daną
-macierz. Następnie sprawdzane są warunki czy nasza obliczona macierz Leontiefa jest odpowiednia, 
-jeśli tak to funkcja zwraca właśnie tą macierz.
+- The "leontief" function is used to calculate the so-called Leontief matrix based on the uploaded matrix
+expenditures. The algorithm loads the desired matrix using the "pandas" and "numpy" libraries. Then
+creates an identity matrix (with identical dimensions as the input matrix) and subtracts the data from it
+mother. Then the conditions are checked whether our calculated Leontief matrix is ​​appropriate,
+if so, the function returns this matrix.
 
-- Funkcja "odwr_leontief" służy do odwrócenia macierzy obliczonej powyżej. Znowu wykorzystuje
-biblioteki "pandas" oraz "numpy". Sprawdzamy warunki, jeśli są one spełnione to program odwraca 
-macierz oraz ją zwraca.
+- The "invr_leontief" function is used to invert the matrix calculated above. He's taking advantage again
+"pandas" and "numpy" libraries. We check the conditions and if they are met, the program reverses
+matrix and returns it.
 
-- Funkcja "oblicz_calkowity” służy do obliczenia wektora x. Wykorzystuje te same biblioteki, co 
-poprzednie funkcje z dodatkiem biblioteki "os”. Na początku sprawdza warunki konieczne do 
-funkcjonowania programu, następnie oblicza wektor x (mnożąc macierze odwrotną oraz wektor y).
-Na koniec zapisuje plik z podaną przez użytkownika nazwą, o ile takowa nie istnieje.
+- The "calculate_integer" function is used to calculate the x vector. It uses the same libraries as
+previous functions with the addition of the "os" library. First, it checks the conditions necessary for
+functioning of the program, then calculates the x vector (by multiplying the inverse matrix and the y vector).
+Finally, it saves the file with the name provided by the user, if it does not exist.
 
-- Funkcja "oblicz_finalny" służy do obliczenia wektora y. Wykorzystuje te same biblioteki co funkcja
-"oblicz_calkowity", działa również w ten sam sposób z jednym wyjątkiem. Zamiast mnożenia macierzy
-odwrotnej oraz wektora y, mnoży macierz leontiefa oraz wektor x.
+- The "calculate_final" function is used to calculate the y vector. It uses the same libraries as the function
+"calculate_integer", also works the same way with one exception. Instead of matrix multiplication
+inverse and the y vector, multiplies the Leontief matrix and the x vector.
 
-Klasa "Przeplywy_Miedzygaleziowe" odpowiada za  GUI, za pomocą którego program komunikuje
-się z użytkownikiem. 
-Funkcja "__init__()" definiuje jakie atrybuty(self,master) będą dostępne dla obiektów tej klasy tj. wywoływane są w niej funkcje, znajdujące się w tej klasie.
-Funkcja "self.quit" służy za wyjście z programu.
-Funkcje "Przegladaj_naklady", "przegladaj_y" oraz "przegladaj_x" służą do wprowadzenia przez
-użytkownika konkretnych plików excel oraz obsługują błędy, jeśli niepoprawny plik został wybrany.
-Funkcje "oblicz_calkowity" oraz "oblicz_finalny" dzięki komendzie "hasattr" wbudowanej w Pythona,
-zadziałają jedynie, jeśli wcześniej zostały wgrane dwa potrzebne do ich działania pliki. Wywołują one
-funkcje obliczające kolejno wektor x oraz wektor y.
-Klasa zamknięta jest w pętli, która zakończy się jedynie przy naciśnięciu przycisku "Wyjdz", dzięki
-czemu program jest przystępniejszy dla użytkownika.
+The "Miedzygaleziowe_flows" class is responsible for the GUI through which the program communicates
+with the user.
+The "__init__()" function defines what attributes (self, master) will be available for objects of this class, i.e. functions contained in this class are called.
+The "self.quit" function serves to exit the program.
+The "Przegladaj_naklady", "przegladaj_y" and "przegladaj_x" functions are intended to be entered by
+user specific excel files and handle errors if an incorrect file was selected.
+"calculate_total" and "calculate_final" functions thanks to the "hasattr" command built into Python,
+will only work if the two files needed for their operation have been previously uploaded. They evoke
+functions that calculate the x vector and the y vector in turn.
+The class is closed in a loop that will only end when you press the "Exit" button, thanks
+making the program more accessible to the user.
+
+///////////////////////////////////////////////////////////<br>
+Project-Python(polish)
 
 
 
