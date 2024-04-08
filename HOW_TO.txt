@@ -76,8 +76,96 @@ functions that calculate the x vector and the y vector in turn.
 The class is closed in a loop that will only end when you press the "Exit" button, thanks
 making the program more accessible to the user.
 
+
+
+
+
 ///////////////////////////////////////////////////////////<br>
 Project-Python(polish)
+Temat projektu: 
+Program operujący na macierzach przepływów międzygałęziowych.
+Ustalanie poszczególnych wektorów w oparciu o powyższe macierze.
+x - produkt całkowity
+y - produkt finalny
+(Obliczanie x jak i y, używając 
+y = produkt finalny x = produkt całkowity, A=macierz nakładów, co wiąże się z obliczaniem macierzy, 
+a także macierzy odwrotnej, które będą czytane z pliku excel.(dowolnych rozmiarów))	
+
+	Twórcy: Tomasz Sałapatek (416216) Wojciech Kantor (412137)
+Projekt był robiony wspólnie przez co ciężko wskazać zakres obowiązków poszczególnych
+członków grupy, można śmiało przyjąć pół na pół.
+	Program wykorzystuje następujące moduły:
+
+1.tkinter - odpowiada za utworzenie GUI, przede wszystkim obsługuje  działanie wszystkich przycisków oraz etykiet 
+np."self.calculate_calkowity_button = tk.Button(master, text="Oblicz calkowity(x)",font=("Times New Roman", 14, "bold")"/ command=self.oblicz_calkowity,width=20, height=2)
+
+2.tkinter->filedialog - umożliwia otwieranie okna plików w systemie operacyjnmym w celu wczytania plików 
+oraz ich zapisania, wykorzystywane w funkcjach "przegladaj_x/y" oraz "oblicz_calkowity/finalny"
+
+3.pandas - odpowiada za wczytywanie plików oraz zapisywanie plików excel np. "macierz = pd.read_excel(input_file, header=None)"
+
+4.numpy - odpowiada za obliczenia na macierzach, takie jak mnożenie, odwracanie,odejmowanie, a także tworzenie macierzy jednostkowej 
+np."macierz_odwrotna = np.linalg.inv(leontief)","macierz_jednostkowa = np.eye(wiersze, kolumny)"
+
+5.os - używamy go do sprawdzania czy plik o danej nazwie już istnieje np." if os.path.isfile(output_file):return "Plik wyjściowy już istnieje." "
+
+6.pip - służacy do pobierania i używania bibliotek, przynajmniej wersja 22.3.1, a także openpyxl, dzięki którem możemy wczytywać plik excel.
+
+
+	Po włączeniu programu
+powinno się ukazać fioletowe okienko z 3 etykietami oraz 6 przyciskami. 
+Idąc od góry mamy etykietę "Macierz nakladow" wraz z odpowiadającym mu przyciskiem "Przegladaj".
+Analogicznie poniżej dwie kolejne etykiety i przypisane do nich przyciski. Przyciski te służą
+do wczytania plików excel w których znajdują się dane potrzebne do działania programu. Owe pliki
+zawierają : macierz nakładów, wektor x (plik wejsciowy x) oraz wektor y (plik wejsciowy y).
+Znajdują się w dołączonym folderze o nazwie "xyz". Pod tymi 3 etykietami znajdują się dwa 
+przyciski "Oblicz calkowity(x)" oraz "Oblicz finalny(y)" Służą one do obliczenia pożądanego
+przez użytkownika odpowiednio wektora x oraz wektora y. Po kliknięciu użytkownik zostanie
+również poproszony o zapisanie wyniku do pliku wyjściowego. Co ważne, aby użyć przycisku
+"Oblicz całkowity(x)" należy uprzednio wgrać plik macierz nakładów oraz plik wejściowy y, 
+analogicznie, aby użyć przycisku "Oblicz finalny(y)" należy wcześniej wgrać plik macierz
+nakładów oraz plik wejsciowy x. Na samym dole okna znajduje się przycisk "wyjdż" służący do
+zamknięcia okna GUI.
+
+	Program oparty jest na 4 funkcjach zewnętrznych oraz klasie:
+
+- Funkcja "leontief" służy do obliczenia tak zwanej macierzy Leontiefa w oparciu w wgraną macierz 
+nakładów. Algorytm przy pomocy biblioteki "pandas" oraz "numpy" wcztuje pożądaną macierz. Następnie 
+tworzy macierz jednostkową (o identycznych wymiarach co macierz nakładów) i odejmuje od niej daną
+macierz. Następnie sprawdzane są warunki czy nasza obliczona macierz Leontiefa jest odpowiednia, 
+jeśli tak to funkcja zwraca właśnie tą macierz.
+
+- Funkcja "odwr_leontief" służy do odwrócenia macierzy obliczonej powyżej. Znowu wykorzystuje
+biblioteki "pandas" oraz "numpy". Sprawdzamy warunki, jeśli są one spełnione to program odwraca 
+macierz oraz ją zwraca.
+
+- Funkcja "oblicz_calkowity” służy do obliczenia wektora x. Wykorzystuje te same biblioteki, co 
+poprzednie funkcje z dodatkiem biblioteki "os”. Na początku sprawdza warunki konieczne do 
+funkcjonowania programu, następnie oblicza wektor x (mnożąc macierze odwrotną oraz wektor y).
+Na koniec zapisuje plik z podaną przez użytkownika nazwą, o ile takowa nie istnieje.
+
+- Funkcja "oblicz_finalny" służy do obliczenia wektora y. Wykorzystuje te same biblioteki co funkcja
+"oblicz_calkowity", działa również w ten sam sposób z jednym wyjątkiem. Zamiast mnożenia macierzy
+odwrotnej oraz wektora y, mnoży macierz leontiefa oraz wektor x.
+
+Klasa "Przeplywy_Miedzygaleziowe" odpowiada za  GUI, za pomocą którego program komunikuje
+się z użytkownikiem. 
+Funkcja "__init__()" definiuje jakie atrybuty(self,master) będą dostępne dla obiektów tej klasy tj. wywoływane są w niej funkcje, znajdujące się w tej klasie.
+Funkcja "self.quit" służy za wyjście z programu.
+Funkcje "Przegladaj_naklady", "przegladaj_y" oraz "przegladaj_x" służą do wprowadzenia przez
+użytkownika konkretnych plików excel oraz obsługują błędy, jeśli niepoprawny plik został wybrany.
+Funkcje "oblicz_calkowity" oraz "oblicz_finalny" dzięki komendzie "hasattr" wbudowanej w Pythona,
+zadziałają jedynie, jeśli wcześniej zostały wgrane dwa potrzebne do ich działania pliki. Wywołują one
+funkcje obliczające kolejno wektor x oraz wektor y.
+Klasa zamknięta jest w pętli, która zakończy się jedynie przy naciśnięciu przycisku "Wyjdz", dzięki
+czemu program jest przystępniejszy dla użytkownika.
+
+
+
+
+
+
+
 
 
 
